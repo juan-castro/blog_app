@@ -1,3 +1,12 @@
 <h1>Show Action</h1>
 
-<%= @user.name %>
+<p id="notice"><%= notice %></p>
+
+<ul>
+  <li><%= @user.name %></li>
+  <li><%= @user.email %></li>
+</ul>
+
+</br>
+
+<%= link_to "Back", users_path %>

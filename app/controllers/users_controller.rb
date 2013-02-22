@@ -1,29 +1,44 @@
 class UsersController < ApplicationController
-	def index
-		@users = User.all
-	end
+  def index
+    @users = User.all
+  end
 
-	def show
-		@user = User.find(params[:id])
-	end
+  def show
+    @user = User.find(params[:id])
+  end
 
-	def new
+  def new
+    @user = User.new
+  end
 
-	end
+  def edit
+    @user = User.find(params[:id])
+  end
 
-	def edit
+  def create
+    @user = User.new(params[:user])
 
-	end
+    if @user.save
+      redirect_to @user, notice: 'User was successfully created.'
+    else
+      render action: "new"
+    end
+  end
 
-	def create
+  def update
+    @user = User.find(params[:id])
 
-	end
+    if @user.update_attributes(params[:user])
+      redirect_to @user, notice: 'User was successfully updated.'
+    else
+      render action: "edit"
+    end
+  end
 
-	def update
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
 
-	end
-
-	def destroy
-
-	end
+    redirect_to users_url
+  end
 end
