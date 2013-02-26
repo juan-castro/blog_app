@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
 	def index
-		@posts = Post.all
 		@user = User.find(params[:user_id])
+		@posts = Post.where('user_id = ?', @user)
 	end
 
 	def show
@@ -34,6 +34,8 @@ class PostsController < ApplicationController
 	def update
 		@post = Post.find(params[:id])
 		@user = User.find(params[:user_id])
+
+		@post.user = @user
 
 		if @post.update_attributes(params[:post])
 			redirect_to [@user, @post], notice: "Post was succesfully updated."
