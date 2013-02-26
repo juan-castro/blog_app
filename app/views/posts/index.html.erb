@@ -1,16 +1,20 @@
-<h1>Post Index</h1>
+<h1><%= @user.name %> Posts</h1>
 
-<table>
-	<% @posts.each do |post| %>
-		<tr>
-			<td><%= post.title %></td>
-			<td><%= post.content %></td>
-			<td>By: <%= @user.name %></td>
-			<td><%= link_to "Show", user_post_path(@user, post) %></td>
-			<td><%= link_to "Edit", edit_user_post_path(@user, post) %></td>
-			<td><%= link_to "Delete", [@user, post], method: :delete, data: { confirm: "Are you sure?" } %></td>
-		</tr>
-	<% end %>
-</table>
-
+<% if @posts.blank? %>
+	<em><%= @user.name %> has no posts</em>
+<% else %>
+	<table>
+		<% @posts.each do |post| %>
+			<tr>
+				<td><%= post.title %></td>
+				<td><%= post.content %></td>
+				<td>By: <%= link_to @user.name, @user %></td>
+				<td><%= link_to "Show", user_post_path(@user, post) %></td>
+				<td><%= link_to "Edit", edit_user_post_path(@user, post) %></td>
+				<td><%= link_to "Delete", [@user, post], method: :delete, data: { confirm: "Are you sure?" } %></td>
+			</tr>
+		<% end %>
+	</table>
+<% end %>
+</br>
 <%= link_to "New Post", new_user_post_path %>
